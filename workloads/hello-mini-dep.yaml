@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-mini
+  namespace: second
+  labels:
+    app: hello-mini
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: hello-mini
+  template:
+    metadata:
+      labels:
+        app: hello-mini
+    spec:
+      containers:
+      - name: hello
+        image: gcr.io/hello-minikube-zero-install/hello-node
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: open
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
