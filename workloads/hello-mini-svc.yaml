@@ -11,7 +11,7 @@ spec:
     app: hello-mini
   ports:
   - name: open
-    port: 8888
-    nodePort: 31121
+    port: 8888 #This is inside containers of form svcname.namespace.svc.cluster.local:THIS_PORT
+    nodePort: 31121 #This is on the cluster nodes but outside container
     protocol: TCP
-    targetPort: open
+    targetPort: open #matches the one from the deployment/container that's exposed
